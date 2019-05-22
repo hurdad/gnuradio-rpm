@@ -19,6 +19,7 @@ BuildRequires:	uhd-devel
 BuildRequires:  qwt-devel
 BuildRequires:  zeromq-devel
 BuildRequires:  volk-devel
+BuildRequires:  uhd-devel
 BuildRequires:  python2-sphinx
 Requires:	numpy, wxPython, scipy, portaudio, python-lxml
 Requires:	pygtk2, python-cheetah, PyQt4
