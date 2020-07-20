@@ -9,16 +9,14 @@ Source:         %{name}-%{version}.tar.gz
 
 Requires(pre):	shadow-utils
 BuildRequires:	cmake, fftw-devel, cppunit-devel, wxPython-devel, xmlto
-BuildRequires:	graphviz, boost-devel, python-devel, swig, doxygen
+BuildRequires:	graphviz, boost169-devel, python-devel, swig, doxygen
 BuildRequires:	libusbx-devel, alsa-lib-devel, SDL-devel, guile-devel
 BuildRequires:	portaudio-devel, libtool, gsm-devel
 BuildRequires:	gsl-devel, tex(latex), numpy, PyQt4-devel, python-cheetah
 BuildRequires:	xdg-utils, python-lxml, pygtk2-devel, orc-devel
 BuildRequires:	desktop-file-utils
-BuildRequires:	uhd-devel
 BuildRequires:  qwt-devel
 BuildRequires:  zeromq-devel
-BuildRequires:  volk-devel
 BuildRequires:  uhd-devel
 BuildRequires:  python2-sphinx
 Requires:	numpy, wxPython, scipy, portaudio, python-lxml
@@ -36,7 +34,7 @@ performance wireless devices into software problems.
 Summary:	GNU Radio
 Group:		Applications/Engineering
 Requires:	%{name} = %{version}-%{release}
-Requires:	cmake, boost-devel
+Requires:	cmake, boost169-devel
 
 %description devel
 GNU Radio Headers
@@ -67,8 +65,20 @@ find . -name "*_moc.cc" -exec rm {} \;
 %build
 mkdir build
 cd build
-%cmake  -DENABLE_INTERNAL_VOLK=OFF \
--DGR_PKG_DOC_DIR=%{_docdir}/%{name} \
+cmake3  -DENABLE_INTERNAL_VOLK=OFF \
+        -DCMAKE_C_FLAGS_RELEASE:STRING="-DNDEBUG" \
+        -DCMAKE_CXX_FLAGS_RELEASE:STRING="-DNDEBUG" \
+        -DCMAKE_Fortran_FLAGS_RELEASE:STRING="-DNDEBUG" \
+        -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+        -DCMAKE_INSTALL_PREFIX:PATH=/usr \
+        -DINCLUDE_INSTALL_DIR:PATH=/usr/include \
+        -DLIB_INSTALL_DIR:PATH=/usr/lib64 \
+        -DSYSCONF_INSTALL_DIR:PATH=/etc \
+        -DSHARE_INSTALL_PREFIX:PATH=/usr/share \
+        -DLIB_SUFFIX=64 \
+	-DBOOST_INCLUDEDIR=/usr/include/boost169/ \
+	-DBOOST_LIBRARYDIR=/usr/lib64/boost169/ \
+	-DGR_PKG_DOC_DIR=%{_docdir}/%{name} \
 ..
 
 # make with -j2 to prevent internal compiler errors due to excessive

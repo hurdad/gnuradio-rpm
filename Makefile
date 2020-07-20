@@ -1,6 +1,6 @@
 # gnuradio-rpm
 version = 3.7.13.5
-release = 1
+release = 2
 name = gnuradio
 full_name = $(name)-$(version)
 download_url = "https://github.com/gnuradio/$(name)/archive/v$(version).tar.gz"
